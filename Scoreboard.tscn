@@ -1,0 +1,68 @@
+[gd_scene load_steps=2 format=3 uid="uid://daylo0uh6jeg5"]
+
+[ext_resource type="Texture2D" uid="uid://7xj7dutbqcci" path="res://Scoreboard.png" id="1_t13jx"]
+
+[node name="Scoreboard" type="Node2D"]
+
+[node name="Scoreboard" type="Sprite2D" parent="."]
+position = Vector2(425, 213)
+scale = Vector2(0.665625, 0.591667)
+texture = ExtResource("1_t13jx")
+
+[node name="Away Logo" type="Label" parent="."]
+offset_left = 29.0
+offset_top = 188.0
+offset_right = 159.0
+offset_bottom = 268.0
+text = "Away Team Logo"
+
+[node name="Home Logo" type="Label" parent="."]
+offset_left = 688.0
+offset_top = 177.0
+offset_right = 818.0
+offset_bottom = 257.0
+text = "Home Team Logo"
+
+[node name="Away Score" type="Label" parent="."]
+offset_left = 198.0
+offset_top = 177.0
+offset_right = 333.0
+offset_bottom = 257.0
+text = "Away Score"
+
+[node name="Home Score" type="Label" parent="."]
+offset_left = 537.0
+offset_top = 178.0
+offset_right = 672.0
+offset_bottom = 258.0
+text = "Home Score"
+
+[node name="Inning" type="Label" parent="."]
+offset_left = 392.0
+offset_top = 157.0
+offset_right = 527.0
+offset_bottom = 237.0
+text = "Inning"
+
+[node name="Outs" type="Label" parent="."]
+offset_left = 402.0
+offset_top = 231.0
+offset_right = 537.0
+offset_bottom = 311.0
+text = "Outs
+"
+
+[node name="Batter" type="Label" parent="."]
+offset_left = 270.0
+offset_top = 322.0
+offset_right = 583.0
+offset_bottom = 402.0
+text = "Current Batter - X for X , Batting History? 
+"
+
+[node name="Pitcher" type="Label" parent="."]
+offset_left = 249.0
+offset_top = 57.0
+offset_right = 649.0
+offset_bottom = 80.0
+text = "Current Pitcher - Strikeouts, Walks, Innings Pitched?"
