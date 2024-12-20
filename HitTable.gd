@@ -1,8 +1,5 @@
 extends Node2D
 
-signal _on_button_pressed
-
-func DeclaredHit():
+func _on_button_pressed_():
 	var num =  randi_range(1,20)
 	$Label.text = str(num)
-	emit_signal("_on_button_pressed", DeclaredHit)
