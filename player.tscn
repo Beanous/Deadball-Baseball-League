@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://bd5cljbi4hyye"]
+
+[ext_resource type="Script" path="res://player.gd" id="1_stf0w"]
+[ext_resource type="Texture2D" uid="uid://dx2q5atvhsx1o" path="res://kenney_sportsPack/PNG/White/characterWhite (1).png" id="2_te0uj"]
+
+[node name="Player" type="Node2D"]
+script = ExtResource("1_stf0w")
+
+[node name="PlayerSprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_te0uj")

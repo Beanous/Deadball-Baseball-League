@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://hw41vsylwedj"]
+[gd_scene load_steps=6 format=3 uid="uid://hw41vsylwedj"]
 
 [ext_resource type="Script" path="res://field.gd" id="1_s2jo0"]
 [ext_resource type="Texture2D" uid="uid://qec7qdat844" path="res://bbd.jpg" id="1_ty2lo"]
 [ext_resource type="Texture2D" uid="uid://07br8i0vopa3" path="res://Test.png" id="2_ehjvt"]
 [ext_resource type="Script" path="res://Runner.gd" id="3_eriqd"]
+[ext_resource type="Script" path="res://player.gd" id="5_jt34j"]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_s2jo0")
@@ -15,16 +16,23 @@ texture = ExtResource("1_ty2lo")
 
 [node name="Runner" type="Sprite2D" parent="."]
 visible = false
-position = Vector2(1197, 341)
+position = Vector2(576, 549)
 scale = Vector2(0.286667, 0.28)
 texture = ExtResource("2_ehjvt")
 script = ExtResource("3_eriqd")
 
+[node name="Player" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(845, 638)
+scale = Vector2(0.286667, 0.28)
+texture = ExtResource("2_ehjvt")
+script = ExtResource("5_jt34j")
+
 [node name="Button" type="Button" parent="."]
-offset_left = 115.0
-offset_top = 553.0
-offset_right = 231.0
-offset_bottom = 601.0
+offset_left = 968.0
+offset_top = 572.0
+offset_right = 1084.0
+offset_bottom = 620.0
 text = "Play Ball!"
 
 [node name="Label" type="Label" parent="."]
@@ -58,12 +66,6 @@ layout_mode = 2
 
 [node name="AtBatTeamName" type="Label" parent="GridContainer"]
 layout_mode = 2
-
-[node name="HomeTeamSpawn" type="Node2D" parent="."]
-position = Vector2(662, 526)
-
-[node name="AwayTeamSpawn" type="Node2D" parent="."]
-position = Vector2(496, 526)
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
 [connection signal="gui_input" from="Label" to="Runner" method="_on_label_gui_input"]

@@ -1,54 +1,46 @@
-[gd_scene load_steps=2 format=3 uid="uid://daylo0uh6jeg5"]
+[gd_scene load_steps=4 format=3 uid="uid://c5fx85hndgu48"]
 
 [ext_resource type="Texture2D" uid="uid://7xj7dutbqcci" path="res://Scoreboard.png" id="1_t13jx"]
+[ext_resource type="Texture2D" uid="uid://ci4bwg6k5iyps" path="res://DBL/Team Logos/No Background/Badgers.PNG" id="2_ohul1"]
+[ext_resource type="Texture2D" uid="uid://b6ldcleusbw1t" path="res://DBL/Team Logos/No Background/Bulldogs.PNG" id="3_dxw83"]
 
 [node name="Scoreboard" type="Node2D"]
 
-[node name="Scoreboard" type="Sprite2D" parent="."]
+[node name="ScoreboardSprite" type="Sprite2D" parent="."]
 position = Vector2(425, 213)
 scale = Vector2(0.665625, 0.591667)
 texture = ExtResource("1_t13jx")
 
-[node name="Away Logo" type="Label" parent="."]
-offset_left = 29.0
-offset_top = 188.0
-offset_right = 159.0
-offset_bottom = 268.0
-text = "Away Team Logo"
-
-[node name="Home Logo" type="Label" parent="."]
-offset_left = 688.0
-offset_top = 177.0
-offset_right = 818.0
-offset_bottom = 257.0
-text = "Home Team Logo"
-
-[node name="Away Score" type="Label" parent="."]
-offset_left = 198.0
-offset_top = 177.0
-offset_right = 333.0
-offset_bottom = 257.0
-text = "Away Score"
-
-[node name="Home Score" type="Label" parent="."]
-offset_left = 537.0
-offset_top = 178.0
-offset_right = 672.0
-offset_bottom = 258.0
+[node name="HomeTeamScore" type="Label" parent="."]
+offset_left = 499.0
+offset_top = 139.0
+offset_right = 666.0
+offset_bottom = 288.0
 text = "Home Score"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AwayTeamScore" type="Label" parent="."]
+offset_left = 184.0
+offset_top = 139.0
+offset_right = 351.0
+offset_bottom = 288.0
+text = "Away Score"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Inning" type="Label" parent="."]
 offset_left = 392.0
 offset_top = 157.0
-offset_right = 527.0
-offset_bottom = 237.0
+offset_right = 449.0
+offset_bottom = 195.0
 text = "Inning"
 
 [node name="Outs" type="Label" parent="."]
 offset_left = 402.0
 offset_top = 231.0
-offset_right = 537.0
-offset_bottom = 311.0
+offset_right = 445.0
+offset_bottom = 260.0
 text = "Outs
 "
 
@@ -66,3 +58,13 @@ offset_top = 57.0
 offset_right = 649.0
 offset_bottom = 80.0
 text = "Current Pitcher - Strikeouts, Walks, Innings Pitched?"
+
+[node name="AwayLogo" type="Sprite2D" parent="."]
+position = Vector2(95, 214)
+scale = Vector2(0.139648, 0.139648)
+texture = ExtResource("2_ohul1")
+
+[node name="HomeLogo" type="Sprite2D" parent="."]
+position = Vector2(756, 214)
+scale = Vector2(0.148926, 0.148926)
+texture = ExtResource("3_dxw83")
