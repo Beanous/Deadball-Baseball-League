@@ -1,0 +1,26 @@
+Name,Age,Position,Hand,BatTarget,OnBaseTarget,Pitcher,PitchDie,TRAITS,Team
+Randall Reid,23,C,R,30,38,,,C+,Marshals
+Antonio Iglesias,25,1B,R,20,28,,,,Marshals
+Marc Collins,24,2B,L,23,32,,,,Marshals
+Ethan Butler,29,3B,L,26,33,,,,Marshals
+Linet Marc,20,SS,R,33,37,,,D+,Marshals
+Felipe Torres,34,LF,R,28,36,,,,Marshals
+Ricardo Nunez,28,CF,R,27,37,,,,Marshals
+Kelly Jennings,23,RF,R,38,44,,,,Marshals
+Corey Castro,21,OF,R,21,26,,,R+,Marshals
+Tracey Sutton,21,OF,R,24,29,,,P++,Marshals
+Donald Cox,31,INF,S,15,21,,,,Marshals
+Salvador Ford,35,INF,R,13,21,,,P-,Marshals
+Ivan Pena,27,C,R,22,29,,,,Marshals
+Raul Mcdonald,29,P,L,12,21,TRUE,12,,Marshals
+Ellen Damyanova,20,P,L,16,26,TRUE,12,K+,Marshals
+Joaquin Molina,35,P,R,14,19,TRUE,8,,Marshals
+Marina Reynolds,18,P,L,15,18,TRUE,8,R+,Marshals
+James Prescott,31,P,R,7,15,TRUE,4,,Marshals
+Carey Huffman,18,P,L,23,30,TRUE,8,,Marshals
+Iker Marin,36,P,L,5,11,TRUE,4,,Marshals
+Calvin Brewer,34,P,R,7,16,TRUE,4,,Marshals
+Alexis Copeland,19,P,R,18,21,TRUE,4,K+,Marshals
+Rochelle Tyler,19,P,R,20,26,TRUE,4,,Marshals
+Harry Shelton,37,P,R,0,5,TRUE,-4,,Marshals
+Carlos Soler,29,P,R,4,14,TRUE,-4,,Marshals

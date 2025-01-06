@@ -27,6 +27,8 @@ func _ready():
 	atBatTeam = teamArray[0]
 	UpdateScoreBoard()
 	
+	readPlayerData()
+	
 	#createScoreBoard()
 	
 	spawnPlayers()
@@ -168,3 +170,18 @@ func createScoreBoard():
 	var screenSize = get_viewport().get_visible_rect().size
 	#temp.position = Vector2(screenSize.x - sbSize.x,screenSize.y - sbSize.y)
 	temp.position = Vector2(700, 400)
+
+func readPlayerData():
+	var data = preload("res://DBL/DBL_Roster_File.csv")
+
+
+func _on_start_game_button_pressed() -> void:
+	var homeTeamInt = $HomeTeamSelect.get_selected_items()[0]
+	var awayTeamInt = $AwayTeamSelect.get_selected_items()[0]
+	teamArray.clear()
+	teamArray.append($HomeTeamSelect.get_item_text(homeTeamInt))
+	teamArray.append($AwayTeamSelect.get_item_text(awayTeamInt))
+	$GridContainer/HomeTeamName.text = teamArray[0]
+	$GridContainer/AwayTeamName.text = teamArray[1]
+	atBatTeam = teamArray[0]
+	UpdateScoreBoard()
