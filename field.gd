@@ -4,6 +4,8 @@ extends Node
 
 enum hitTypes {Normal = 0,Crit = 1,Worse = -1}
 enum errTypes {Swing = 1, Hit = 2}
+enum rosterDataType {Name=0,Age=1,Position=2,Hand=3,BatTarget=4,OnBaseTarget=5,Pitcher=6,PitchDie=7,Traits=8,Team=9}
+
 
 var scoreTracker : int = 0
 var outTracker : int = 0
@@ -20,48 +22,62 @@ var bothTeamsPlayerArray : Array[Array]
 #Variable for tracking currently at bat player
 var curBatNumArray = [0,0]
 
+var gameStarted : bool = false
+
+var rosterData
+
 func _ready():
-	teamArray = ["Infernos","Spartans"]
-	$GridContainer/HomeTeamName.text = teamArray[0]
-	$GridContainer/AwayTeamName.text = teamArray[1]
-	atBatTeam = teamArray[0]
-	UpdateScoreBoard()
+	rosterData = preload("res://DBL/DBL_Roster_File.csv").records
+	
+	$GridContainer.visible = false
+	$TeamSelect.visible = true
+	
+	$Button.visible = false
+	$StartGameButton.visible = true
+	$StartGameButton.disabled = true
 	
 	readPlayerData()
 	
 	#createScoreBoard()
 	
-	spawnPlayers()
-	
+	pass
 
 
 func _process(delta: float) -> void:
-	UpdateScoreBoard()
-	if (outTracker == 3):
-		print("Next Inning")
-		outTracker=0
-		if (atBatTeamNum == 0):
-			atBatTeamNum = 1
-			atBatTeam = teamArray[atBatTeamNum]
-		else:
-			inningTracker += 1
-			atBatTeamNum = 0
-			atBatTeam = teamArray[atBatTeamNum]
-
-		
+	if gameStarted:
+		UpdateScoreBoard()
+		if (outTracker == 3):
+			print("Next Inning")
+			outTracker=0
+			if (atBatTeamNum == 0):
+				atBatTeamNum = 1
+				atBatTeam = teamArray[atBatTeamNum]
+			else:
+				inningTracker += 1
+				atBatTeamNum = 0
+				atBatTeam = teamArray[atBatTeamNum]
+	
+	##Only allows start game to be selected when both teams are selected
+	if ($TeamSelect/HomeTeamSelect.is_anything_selected() == true) and ($TeamSelect/AwayTeamSelect.is_anything_selected() == true):
+			$StartGameButton.disabled = false
+	else: 
+			$StartGameButton.disabled = true
 
 func _on_button_pressed():
 	var swing =  randi_range(1,100)
 	var curTeam = curBatNumArray[atBatTeamNum]
 	swingTable(swing, bothTeamsPlayerArray[atBatTeamNum][curTeam])
+	UpdateBatterBoard()
 	if (curBatNumArray[atBatTeamNum] +1 >= bothTeamsPlayerArray[atBatTeamNum].size()):
 		curBatNumArray[atBatTeamNum] = 0
 	else :
 		curBatNumArray[atBatTeamNum] += 1
+		
+	
 
 #Function that runs swing table result
 func swingTable(swingNum :int, atBatPlayer : Node2D):
-	print("Current Batter: ",bothTeamsPlayerArray[atBatTeamNum][curBatNumArray[atBatTeamNum]])
+	print("Current Batter: ",bothTeamsPlayerArray[atBatTeamNum][curBatNumArray[atBatTeamNum]].playerName)
 	var batter = { "BatTarget" : 26, "OnBaseTarget" : 33}
 	print("Swing Num: ",swingNum)
 	if(swingNum == 1):
@@ -143,7 +159,43 @@ func UpdateScoreBoard():
 	$GridContainer/ScoreCounter.text = "Score: "+str(scoreTracker)
 	$GridContainer/InningCounter.text = "Inning: "+str(inningTracker)
 	$GridContainer/AtBatTeamName.text = atBatTeam+" at bat"
+	
+	$GridContainer/HomeTeamName.text = teamArray[0]
+	$GridContainer/AwayTeamName.text = teamArray[1]
 
+func UpdateBatterBoard():
+	$AtBatList.clear()
+	
+	if atBatTeamNum == 0:
+		var teamSize = len(homeTeamPlayerArray)
+		var curBatStart = curBatNumArray[0]
+		for x in range(curBatStart,teamSize,1):
+			$AtBatList.add_item(homeTeamPlayerArray[x].playerName)
+	else:
+		var teamSize = len(awayTeamPlayerArray)
+		var curBatStart = curBatNumArray[1]
+		for x in range(curBatStart,teamSize,1):
+			$AtBatList.add_item(awayTeamPlayerArray[x].playerName)
+
+func generatePlayers():
+	var instance = preload("res://player.tscn")
+	for x in rosterData:
+		if x[rosterDataType.Team] == teamArray[0]:
+			var temp = instance.instantiate()
+			add_child(temp)
+			temp.setPlayerStats(x)
+			temp.position = $HomeTeamSpawn.position
+			homeTeamPlayerArray.append(temp)
+		if x[rosterDataType.Team] == teamArray[1]:
+			var temp = instance.instantiate()
+			add_child(temp)
+			temp.setPlayerStats(x)
+			temp.position = $AwayTeamSpawn.position
+			awayTeamPlayerArray.append(temp)
+	bothTeamsPlayerArray.append(homeTeamPlayerArray)
+	bothTeamsPlayerArray.append(awayTeamPlayerArray)
+
+##Old Func
 func spawnPlayers():
 	var instance = preload("res://player.tscn")
 	for a in range(0,9,1):
@@ -176,12 +228,20 @@ func readPlayerData():
 
 
 func _on_start_game_button_pressed() -> void:
-	var homeTeamInt = $HomeTeamSelect.get_selected_items()[0]
-	var awayTeamInt = $AwayTeamSelect.get_selected_items()[0]
-	teamArray.clear()
-	teamArray.append($HomeTeamSelect.get_item_text(homeTeamInt))
-	teamArray.append($AwayTeamSelect.get_item_text(awayTeamInt))
-	$GridContainer/HomeTeamName.text = teamArray[0]
-	$GridContainer/AwayTeamName.text = teamArray[1]
+	var homeTeamInt = $TeamSelect/HomeTeamSelect.get_selected_items()[0]
+	var awayTeamInt = $TeamSelect/AwayTeamSelect.get_selected_items()[0]
+	if len(teamArray)>0:
+		teamArray.clear()
+	teamArray.append($TeamSelect/HomeTeamSelect.get_item_text(homeTeamInt))
+	teamArray.append($TeamSelect/AwayTeamSelect.get_item_text(awayTeamInt))
 	atBatTeam = teamArray[0]
 	UpdateScoreBoard()
+	
+	generatePlayers()
+	
+	gameStarted = true
+	$GridContainer.visible = true
+	$TeamSelect.visible = false
+	
+	$Button.visible = true
+	$StartGameButton.visible = false

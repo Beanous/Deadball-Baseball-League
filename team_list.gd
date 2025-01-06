@@ -1,6 +1,6 @@
 extends ItemList
 
-enum rosterHeader {Name=0,Age=1,Position=2,Hand=3,BatTarget=4,OnBaseTarget=4,Pitcher=5,PitchDie=6,Traits=7,Team=9}
+enum rosterDataType {Name=0,Age=1,Position=2,Hand=3,BatTarget=4,OnBaseTarget=5,Pitcher=6,PitchDie=7,Traits=8,Team=9}
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -10,7 +10,7 @@ func _ready() -> void:
 	for x in arrayLen:
 		##print(rosterData[x][rosterHeader.Team])
 		if x != 0 :
-			TeamList.append(rosterData[x][rosterHeader.Team])
+			TeamList.append(rosterData[x][rosterDataType.Team])
 		x += 1
 	var fTeamList = unique_array(TeamList)
 	for x in fTeamList:

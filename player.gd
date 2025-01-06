@@ -1,14 +1,16 @@
 extends Node2D
 
 enum handTypes {left=-1,switch=0,right=1}
+enum rosterDataType {Name=0,Age=1,Position=2,Hand=3,BatTarget=4,OnBaseTarget=5,Pitcher=6,PitchDie=7,Traits=8,Team=9}
+
 
 var playerName : String
 var playerNumber : int
 var batTarget : int 
 var onBaseTarget : int
 var playerPosition : String
-var pitcher : bool
-var handed : int
+var pitcher : String
+var handed : String
 
 #rotation variables
 var rotFrom := 0
@@ -58,3 +60,12 @@ func moveBases(start: int, end: int):
 		rotTo = Vector2.UP.angle_to(basePos - position)
 		rotWeight = min(rotWeight * 10,1)
 		tween.tween_property($".","rotation",rotTo,0.4)
+
+func setPlayerStats(rosterInfo : Array):
+	playerName = rosterInfo[rosterDataType.Name]
+	batTarget = int(rosterInfo[rosterDataType.BatTarget])
+	onBaseTarget = int(rosterInfo[rosterDataType.OnBaseTarget])
+	playerPosition = rosterInfo[rosterDataType.Position]
+	pitcher = rosterInfo[rosterDataType.Pitcher]
+	handed = rosterInfo[rosterDataType.Hand]
+	
