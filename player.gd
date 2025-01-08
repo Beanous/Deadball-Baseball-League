@@ -1,7 +1,7 @@
 extends Node2D
 
 enum handTypes {left=-1,switch=0,right=1}
-enum rosterDataType {Name=0,Age=1,Position=2,Hand=3,BatTarget=4,OnBaseTarget=5,Pitcher=6,PitchDie=7,Traits=8,Team=9}
+enum rosterDataType {Name=0,Age=1,Position=2,Hand=3,BatTarget=4,OnBaseTarget=5,Pitcher=6,PitchDie=7,Traits=8,Team=9,Position2=10,HRs=11,BatAvg=12,Ks=13,BBs=14,IPs=15}
 
 
 var playerName : String
@@ -11,6 +11,9 @@ var onBaseTarget : int
 var playerPosition : String
 var pitcher : String
 var handed : String
+var team : String
+var benchPos : String
+
 
 #rotation variables
 var rotFrom := 0
@@ -69,3 +72,5 @@ func setPlayerStats(rosterInfo : Array):
 	pitcher = rosterInfo[rosterDataType.Pitcher]
 	handed = rosterInfo[rosterDataType.Hand]
 	
+	team = rosterInfo[rosterDataType.Team]
+	benchPos = rosterInfo[rosterDataType.Position2]

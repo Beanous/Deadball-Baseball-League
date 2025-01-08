@@ -4,7 +4,7 @@ extends Node
 
 enum hitTypes {Normal = 0,Crit = 1,Worse = -1}
 enum errTypes {Swing = 1, Hit = 2}
-enum rosterDataType {Name=0,Age=1,Position=2,Hand=3,BatTarget=4,OnBaseTarget=5,Pitcher=6,PitchDie=7,Traits=8,Team=9}
+enum rosterDataType {Name=0,Age=1,Position=2,Hand=3,BatTarget=4,OnBaseTarget=5,Pitcher=6,PitchDie=7,Traits=8,Team=9,Position2=10,HRs=11,BatAvg=12,Ks=13,BBs=14,IPs=15}
 
 
 var scoreTracker : int = 0
@@ -29,9 +29,10 @@ var rosterData
 func _ready():
 	rosterData = preload("res://DBL/DBL_Roster_File.csv").records
 	
-	$GridContainer.visible = false
 	$TeamSelect.visible = true
 	
+	$Scoreboard.visible = false
+
 	$Button.visible = false
 	$StartGameButton.visible = true
 	$StartGameButton.disabled = true
@@ -45,7 +46,7 @@ func _ready():
 
 func _process(delta: float) -> void:
 	if gameStarted:
-		UpdateScoreBoard()
+		RefreshScoreboard()
 		if (outTracker == 3):
 			print("Next Inning")
 			outTracker=0
@@ -153,15 +154,19 @@ func hitTable(hitNum : int, hitMod : int, atBatPlayer):
 		atBatPlayer.moveBases(0,2+hitMod)
 	if (hitNum > 18):
 		atBatPlayer.moveBases(0,4+hitMod)
-
-func UpdateScoreBoard():
-	$GridContainer/OutCounter.text = "Outs: "+str(outTracker)
-	$GridContainer/ScoreCounter.text = "Score: "+str(scoreTracker)
-	$GridContainer/InningCounter.text = "Inning: "+str(inningTracker)
-	$GridContainer/AtBatTeamName.text = atBatTeam+" at bat"
 	
-	$GridContainer/HomeTeamName.text = teamArray[0]
-	$GridContainer/AwayTeamName.text = teamArray[1]
+func RefreshScoreboard():
+	$Scoreboard/MainBoxInfo/HomeTeamScore/HomeTeamName.text = teamArray[0]
+	$Scoreboard/MainBoxInfo/AwayTeamScore/AwayTeamName.text = teamArray[1]
+	$Scoreboard/MainBoxInfo/HomeTeamLogo.texture = load("res://DBL/Team Logos/No Background/"+teamArray[0]+".PNG")
+	$Scoreboard/MainBoxInfo/AwayTeamLogo.texture = load("res://DBL/Team Logos/No Background/"+teamArray[1]+".PNG")
+	$Scoreboard/MainBoxInfo/MiddleBox/InningValue.text = str(inningTracker)
+	$Scoreboard/MainBoxInfo/MiddleBox/OutsValue.text = str(outTracker)
+	if atBatTeamNum == 0:
+		$Scoreboard/BottomBoxInfo/BatterInfo.text = homeTeamPlayerArray[curBatNumArray[0]].playerName+" at bat"
+	else :
+		$Scoreboard/BottomBoxInfo/BatterInfo.text = awayTeamPlayerArray[curBatNumArray[1]].playerName+" at bat"
+
 
 func UpdateBatterBoard():
 	$AtBatList.clear()
@@ -195,34 +200,6 @@ func generatePlayers():
 	bothTeamsPlayerArray.append(homeTeamPlayerArray)
 	bothTeamsPlayerArray.append(awayTeamPlayerArray)
 
-##Old Func
-func spawnPlayers():
-	var instance = preload("res://player.tscn")
-	for a in range(0,9,1):
-		var temp = instance.instantiate()
-		add_child(temp)
-		temp.position = $HomeTeamSpawn.position
-		homeTeamPlayerArray.append(temp)
-	for b in range(0,9,1):
-		var temp = instance.instantiate()
-		add_child(temp)
-		temp.position = $AwayTeamSpawn.position
-		awayTeamPlayerArray.append(temp)
-	bothTeamsPlayerArray.append(homeTeamPlayerArray)
-	bothTeamsPlayerArray.append(awayTeamPlayerArray)
-
-
-func createScoreBoard():
-	var instance = preload("res://Scoreboard.tscn")
-	var temp = instance.instantiate()
-	add_child(temp)
-	temp.scale = Vector2(0.5,0.5)
-	var sbSize = temp.get_node("ScoreboardSprite").get_rect().size
-	print(sbSize)
-	var screenSize = get_viewport().get_visible_rect().size
-	#temp.position = Vector2(screenSize.x - sbSize.x,screenSize.y - sbSize.y)
-	temp.position = Vector2(700, 400)
-
 func readPlayerData():
 	var data = preload("res://DBL/DBL_Roster_File.csv")
 
@@ -235,12 +212,12 @@ func _on_start_game_button_pressed() -> void:
 	teamArray.append($TeamSelect/HomeTeamSelect.get_item_text(homeTeamInt))
 	teamArray.append($TeamSelect/AwayTeamSelect.get_item_text(awayTeamInt))
 	atBatTeam = teamArray[0]
-	UpdateScoreBoard()
 	
 	generatePlayers()
 	
+	$Scoreboard.visible = true
+	
 	gameStarted = true
-	$GridContainer.visible = true
 	$TeamSelect.visible = false
 	
 	$Button.visible = true

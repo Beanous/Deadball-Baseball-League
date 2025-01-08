@@ -14,5 +14,5 @@ dest_files=["res://.godot/imported/DBL_Roster_File.csv-0018253e950bb4e159b854242
 
 delimiter=0
 headers=false
-detect_numbers=false
+detect_numbers=true
 force_float=true

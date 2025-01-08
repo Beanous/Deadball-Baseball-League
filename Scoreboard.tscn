@@ -1,70 +1,115 @@
-[gd_scene load_steps=4 format=3 uid="uid://c5fx85hndgu48"]
+[gd_scene load_steps=3 format=3 uid="uid://c5fx85hndgu48"]
 
-[ext_resource type="Texture2D" uid="uid://7xj7dutbqcci" path="res://Scoreboard.png" id="1_t13jx"]
+[ext_resource type="Texture2D" uid="uid://ch4edr7qjmros" path="res://DBL/Team Logos/No Background/War Hogs.PNG" id="2_0wjyg"]
 [ext_resource type="Texture2D" uid="uid://ci4bwg6k5iyps" path="res://DBL/Team Logos/No Background/Badgers.PNG" id="2_ohul1"]
-[ext_resource type="Texture2D" uid="uid://b6ldcleusbw1t" path="res://DBL/Team Logos/No Background/Bulldogs.PNG" id="3_dxw83"]
 
 [node name="Scoreboard" type="Node2D"]
 
-[node name="ScoreboardSprite" type="Sprite2D" parent="."]
-position = Vector2(425, 213)
-scale = Vector2(0.665625, 0.591667)
-texture = ExtResource("1_t13jx")
+[node name="SolidBkg" type="ColorRect" parent="."]
+offset_right = 830.0
+offset_bottom = 200.0
+color = Color(0, 0, 0, 1)
 
-[node name="HomeTeamScore" type="Label" parent="."]
-offset_left = 499.0
-offset_top = 139.0
-offset_right = 666.0
-offset_bottom = 288.0
+[node name="TopBoxInfo" type="HBoxContainer" parent="."]
+offset_right = 830.0
+offset_bottom = 25.0
+
+[node name="PitcherInfo" type="Label" parent="TopBoxInfo"]
+layout_mode = 2
+size_flags_horizontal = 6
+text = "Current Pitcher - Strikeouts, Walks, Innings Pitched?"
+
+[node name="MainBoxInfo" type="HBoxContainer" parent="."]
+offset_top = 25.0
+offset_right = 830.0
+offset_bottom = 175.0
+
+[node name="AwayTeamLogo" type="TextureRect" parent="MainBoxInfo"]
+layout_mode = 2
+texture = ExtResource("2_ohul1")
+expand_mode = 3
+
+[node name="AwayTeamScore" type="BoxContainer" parent="MainBoxInfo"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+vertical = true
+
+[node name="AwayTeamName" type="Label" parent="MainBoxInfo/AwayTeamScore"]
+layout_mode = 2
+size_flags_horizontal = 6
+text = "Away Score"
+horizontal_alignment = 3
+vertical_alignment = 1
+
+[node name="AwayTeamScore" type="Label" parent="MainBoxInfo/AwayTeamScore"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "##"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MiddleBox" type="BoxContainer" parent="MainBoxInfo"]
+layout_mode = 2
+alignment = 1
+vertical = true
+
+[node name="OutsLabel" type="Label" parent="MainBoxInfo/MiddleBox"]
+layout_mode = 2
+text = "Outs
+"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="OutsValue" type="Label" parent="MainBoxInfo/MiddleBox"]
+layout_mode = 2
+text = "##"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="InningLabel" type="Label" parent="MainBoxInfo/MiddleBox"]
+layout_mode = 2
+text = "Inning"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="InningValue" type="Label" parent="MainBoxInfo/MiddleBox"]
+layout_mode = 2
+text = "##"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HomeTeamScore" type="BoxContainer" parent="MainBoxInfo"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+vertical = true
+
+[node name="HomeTeamName" type="Label" parent="MainBoxInfo/HomeTeamScore"]
+layout_mode = 2
 text = "Home Score"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="AwayTeamScore" type="Label" parent="."]
-offset_left = 184.0
-offset_top = 139.0
-offset_right = 351.0
-offset_bottom = 288.0
-text = "Away Score"
+[node name="HomeTeamScore" type="Label" parent="MainBoxInfo/HomeTeamScore"]
+layout_mode = 2
+text = "##"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Inning" type="Label" parent="."]
-offset_left = 392.0
-offset_top = 157.0
-offset_right = 449.0
-offset_bottom = 195.0
-text = "Inning"
+[node name="HomeTeamLogo" type="TextureRect" parent="MainBoxInfo"]
+layout_mode = 2
+texture = ExtResource("2_0wjyg")
+expand_mode = 3
 
-[node name="Outs" type="Label" parent="."]
-offset_left = 402.0
-offset_top = 231.0
-offset_right = 445.0
-offset_bottom = 260.0
-text = "Outs
-"
+[node name="BottomBoxInfo" type="HBoxContainer" parent="."]
+offset_top = 175.0
+offset_right = 830.0
+offset_bottom = 200.0
+alignment = 1
 
-[node name="Batter" type="Label" parent="."]
-offset_left = 270.0
-offset_top = 322.0
-offset_right = 583.0
-offset_bottom = 402.0
+[node name="BatterInfo" type="Label" parent="BottomBoxInfo"]
+layout_mode = 2
+size_flags_horizontal = 4
 text = "Current Batter - X for X , Batting History? 
 "
-
-[node name="Pitcher" type="Label" parent="."]
-offset_left = 249.0
-offset_top = 57.0
-offset_right = 649.0
-offset_bottom = 80.0
-text = "Current Pitcher - Strikeouts, Walks, Innings Pitched?"
-
-[node name="AwayLogo" type="Sprite2D" parent="."]
-position = Vector2(95, 214)
-scale = Vector2(0.139648, 0.139648)
-texture = ExtResource("2_ohul1")
-
-[node name="HomeLogo" type="Sprite2D" parent="."]
-position = Vector2(756, 214)
-scale = Vector2(0.148926, 0.148926)
-texture = ExtResource("3_dxw83")

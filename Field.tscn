@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://hw41vsylwedj"]
+[gd_scene load_steps=7 format=3 uid="uid://hw41vsylwedj"]
 
 [ext_resource type="Script" path="res://field.gd" id="1_s2jo0"]
 [ext_resource type="Texture2D" uid="uid://qec7qdat844" path="res://bbd.jpg" id="1_ty2lo"]
 [ext_resource type="Texture2D" uid="uid://07br8i0vopa3" path="res://Test.png" id="2_ehjvt"]
 [ext_resource type="Script" path="res://Runner.gd" id="3_eriqd"]
 [ext_resource type="Script" path="res://team_list.gd" id="5_e7l3l"]
+[ext_resource type="PackedScene" uid="uid://c5fx85hndgu48" path="res://Scoreboard.tscn" id="5_g0bqe"]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_s2jo0")
@@ -43,31 +44,8 @@ allow_search = false
 max_text_lines = 200
 auto_height = true
 
-[node name="GridContainer" type="GridContainer" parent="."]
-offset_left = 15.0
-offset_top = 13.0
-offset_right = 144.0
-offset_bottom = 199.0
-
-[node name="HomeTeamName" type="Label" parent="GridContainer"]
-layout_mode = 2
-
-[node name="AwayTeamName" type="Label" parent="GridContainer"]
-layout_mode = 2
-
-[node name="OutCounter" type="Label" parent="GridContainer"]
-layout_mode = 2
-text = "Outs: "
-
-[node name="ScoreCounter" type="Label" parent="GridContainer"]
-layout_mode = 2
-text = "Score: "
-
-[node name="InningCounter" type="Label" parent="GridContainer"]
-layout_mode = 2
-
-[node name="AtBatTeamName" type="Label" parent="GridContainer"]
-layout_mode = 2
+[node name="Scoreboard" parent="." instance=ExtResource("5_g0bqe")]
+position = Vector2(172, 7)
 
 [node name="HomeTeamSpawn" type="Node2D" parent="."]
 position = Vector2(662, 526)
